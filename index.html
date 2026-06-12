@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="hi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Battle Arena - Tournament App</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Dark Theme Global Styling */
+        body {
+            background-color: #0b0c10;
+            color: #c5c6c7;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: rgba(11, 12, 16, 0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1f2833;
+        }
+        .mainmenu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .mainmenu ul li {
+            margin-left: 25px;
+        }
+        .mainmenu ul li a {
+            color: #66fcf1;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .mainmenu ul li a:hover, .mainmenu ul li a.active {
+            color: #45f3ff;
+            text-shadow: 0 0 10px #45f3ff;
+        }
+
+        /* Hero / Background Area */
+        .hero-area {
+            padding: 150px 0 80px 0;
+            background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.95)), url('logo.png') no-repeat center center;
+            background-size: contain;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .hero-content h1 {
+            color: #fff;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .hero-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #c5c6c7;
+        }
+        .download-btn {
+            background: linear-gradient(45deg, #1f4068, #162447);
+            color: #fff;
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            transition: 0.4s;
+            border: 1px solid #66fcf1;
+            box-shadow: 0px 0px 15px rgba(102, 252, 241, 0.2);
+        }
+        .download-btn:hover {
+            color: #0b0c10;
+            background: #66fcf1;
+            box-shadow: 0px 0px 25px rgba(102, 252, 241, 0.6);
+            text-decoration: none;
+        }
+
+        /* About & Contact Sections */
+        .section-padding {
+            padding: 80px 0;
+            border-bottom: 1px solid #1f2833;
+        }
+        .sec-title h2 {
+            color: #fff;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+        .sec-title span {
+            color: #66fcf1;
+        }
+
+        /* Scroll Animations for Screenshots */
+        .screenshot-section {
+            padding: 80px 0;
+            background-color: #0b0c10;
+        }
+        .screenshot-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        .screenshot-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .ss-img-container {
+            width: 100%;
+            text-center: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        /* Left and Right initial states */
+        .slide-left {
+            transform: translateX(-150px);
+        }
+        .slide-right {
+            transform: translateX(150px);
+        }
+        /* Active Animation State */
+        .ss-img-container.animated {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+        .screenshot-row img {
+            max-height: 450px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(102, 252, 241, 0.2);
+            border: 2px solid #1f2833;
+        }
+        .ss-text {
+            padding: 20px;
+        }
+        .ss-text h3 {
+            color: #66fcf1;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Details Grid & Links */
+        .contact-link {
+            text-decoration: none !important;
+            color: inherit;
+            display: block;
+        }
+        .contact-box {
+            background: #11141a;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #1f2833;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .contact-link:hover .contact-box {
+            border-color: #45f3ff;
+            box-shadow: 0px 0px 15px rgba(69, 243, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        .contact-box i {
+            font-size: 40px;
+            color: #66fcf1;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .contact-link:hover .contact-box i {
+            color: #45f3ff;
+            text-shadow: 0 0 10px #45f3ff;
+        }
+        .contact-box h4 {
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #050608;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #454545;
+        }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".header" data-offset="100">
+
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-6 col-md-3">
+                    <div class="logo">
+                        <a href="#home">
+                            <img src="logo.png" alt="PLAYT24 Logo" width="120"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-md-9">
+                    <nav class="mainmenu">
+                        <ul id="primary-menu">
+                            <li><a class="nav-link active" href="#home">Home</a></li>
+                            <li><a class="nav-link" href="#about">About</a></li>
+                            <li><a class="nav-link" href="#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-area" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 hero-content">
+                    <h1>PLAYT24</h1>
+                    <p><strong>FREE FIRE TOURNAMENT APP</strong><br>
+                    EARN MONEY BY PLAYING FREE FIRE<br>
+                    CONVERT YOUR GAMING SKILLS INTO MONEY<br>
+                    We Host Tournament of online Games.<br>
+                    BR, CS, LONEWOLF, CLASSIC MATCHES Etc. Tournaments Host</p>
+                    <a href="download.php" class="download-btn"><i class="fab fa-android mr-2"></i>Download App</a>
+                </div>
+                <div class="col-lg-5 text-center mt-5 mt-lg-0">
+                    <img src="logo.png" alt="Main View" style="max-height: 350px; filter: drop-shadow(0px 0px 20px rgba(102,252,241,0.3));">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-area section-padding" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="sec-title">
+                        <h2>About <span>Battle Arena</span></h2>
+                        <p class="lead">We Host Paid And Free Tournaments for different Games. Check Out our application for our Pricing Details.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center mt-4">
+                <div class="col-md-4 mb-4">
+                    <div class="contact-box">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>FAIR PLAY</h4>
+                        <p>All matches are conducted fairly. Everyone gets rewards according to performance.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="contact-box">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Fast Performance</h4>
+                        <p>Built using the latest lag-free technology, custom-optimized for speed.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="contact-box">
+                        <i class="fas fa-wallet"></i>
+                        <h4>Real Earnings</h4>
+                        <p>No fake points systems. Directly withdraw your cash rewards to your preferred wallet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshot-section" id="screenshots">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="sec-title">
+                        <h2>App <span>Screenshots</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row screenshot-row">
+                <div class="col-md-6 text-center">
+                    <div class="ss-img-container slide-right">
+                        <img src="ss1.png" alt="Screenshot 1" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="ss-text text-center text-md-left">
+                        <h3>Easy Login And Register</h3>
+                        <p>Login And REgister Instantly In our App</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row screenshot-row">
+                <div class="col-md-6 text-center">
+                    <div class="ss-img-container slide-left">
+                        <img src="ss2.png" alt="Screenshot 2" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="ss-text text-center text-md-left">
+                        <h3>Premium Dashboard</h3>
+                        <p>Keep a close look and Easy To Use Premium Dashboard</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row screenshot-row">
+                <div class="col-md-6 text-center">
+                    <div class="ss-img-container slide-right">
+                        <img src="ss3.png" alt="Screenshot 3" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="ss-text text-center text-md-left">
+                        <h3>Secure Wallets & Top-ups</h3>
+                        <p>Withdraw points or top up instantly into UC/Diamonds or direct bank transfers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row screenshot-row">
+                <div class="col-md-6 text-center">
+                    <div class="ss-img-container slide-left">
+                        <img src="ss4.png" alt="Screenshot 4" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="ss-text text-center text-md-left">
+                        <h3>Earn with Referrals</h3>
+                        <p>Invite your squad members and receive exclusive bonus rewards per signup.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row screenshot-row">
+                <div class="col-md-6 text-center">
+                    <div class="ss-img-container slide-right">
+                        <img src="ss5.png" alt="Screenshot 5" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="ss-text text-center text-md-left">
+                        <h3>24/7 Premium Support</h3>
+                        <p>Connect immediately with organizers to resolve queries regarding scores or rooms.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-area section-padding" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="sec-title">
+                        <h2>Get In <span>Touch</span></h2>
+                        <p>Have any questions? Don't hesitate to reach out to us on our official support links.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center mt-4 justify-content-center">
+                <!-- Instagram Link -->
+                <div class="col-6 col-lg-3 mb-4">
+                    <a href="https://instagram.com/BattaleArenaIg" target="_blank" class="contact-link">
+                        <div class="contact-box">
+                            <i class="fab fa-instagram"></i>
+                            <h4>Instagram</h4>
+                            <p>@BattaleArenaIg</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- WhatsApp Link (Replace XXXXXXXXXX with your number) -->
+                <div class="col-6 col-lg-3 mb-4">
+                    <a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="contact-link">
+                        <div class="contact-box">
+                            <i class="fab fa-whatsapp"></i>
+                            <h4>WhatsApp</h4>
+                            <p>Chat With Us</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Telegram Link (Replace YourUsername with channel/group link) -->
+                <div class="col-6 col-lg-3 mb-4">
+                    <a href="https://t.me/YourUsername" target="_blank" class="contact-link">
+                        <div class="contact-box">
+                            <i class="fab fa-telegram-plane"></i>
+                            <h4>Telegram</h4>
+                            <p>Join Our Channel</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Email Support Link (Directly opens Mail client) -->
+                <div class="col-6 col-lg-3 mb-4">
+                    <a href="mailto:supportBattleArena@gmail.com?subject=Battle%20Arena%20Support" class="contact-link">
+                        <div class="contact-box">
+                            <i class="fas fa-envelope"></i>
+                            <h4>Email Support</h4>
+                            <p>supportBattleArena@gmail.com</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 BATTALE ARENA. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(window).on('scroll load', function() {
+            $('.ss-img-container').each(function() {
+                var elementTop = $(this).offset().top;
+                var windowBottom = $(window).scrollTop() + $(window).height();
+                
+                if (windowBottom > elementTop + 100) {
+                    $(this).addClass('animated');
+                }
+            });
+        });
+
+        $('.nav-link').on('click', function(event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top - 70
+                }, 800);
+            }
+        });
+    </script>
+</body>
+</html>
